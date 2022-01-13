@@ -1,0 +1,20 @@
+<div class="container mt-3">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="media">
+              <div class="media-left">
+                <a href="/book/{{book.isbn}}">
+                  <img class="media-object" src={{book.imageUrlS}} alt="...">
+                </a>
+              </div>
+              <div class="media-body">
+                <strong class="media-heading"><a href="/book/{{book.isbn}}">{{book.title}}</a></strong>
+                <p>{{book.author}}</p>
+                <p-rating [(ngModel)]="book.rating" 
+                [readonly] = true
+                [cancel] = false ></p-rating>
+              </div>
+            </div>
+        </div>
+    </div>
+</div>

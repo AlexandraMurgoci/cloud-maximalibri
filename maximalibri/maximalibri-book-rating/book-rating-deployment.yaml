@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: default
+  name: book-rating
+spec:
+  selector:
+    matchLabels:
+      app: book-rating
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: book-rating
+    spec:
+      containers:
+        - image: docker.io/alexandramurgoci/maximalibri-book-rating:4.0
+          imagePullPolicy: Always
+          name: book-rating
+          ports:
+          - containerPort: 8080
+          resources:
+            limits:
+              cpu: 500m
+            requests:
+              cpu: 200m

@@ -1,0 +1,51 @@
+<div class="container mt-5">
+  <div class="loading-indicator" *ngIf="loadingRecommendations || loadingGalery"><p-progressSpinner></p-progressSpinner></div>
+  <hr class="mt-2 mb-5">
+
+  <!-- recommendations -->
+    <div class="mt-2 mb-5 col-md-12" *ngIf="authService.isUserLogged() && !loadingRecommendations">
+      <h4 *ngIf="recommendations.length == 0">Rate at least 3 books and we'll recommend you 5 more!</h4>
+      <h4 *ngIf="recommendations.length > 0">Checkout out these books!</h4>
+      <p-carousel *ngIf="recommendations.length > 0" [value]="recommendations" [numVisible]="3" [numScroll]="1" [autoplayInterval]="8000" [circular]="true">
+        <ng-template let-book pTemplate="item">
+          <div class="ui-g-12 ui-md-3">
+            <div>
+              <div>
+                  <a href="/book/{{book.isbn}}" class="d-block mb-4 h-100">
+                    <img class="img-fluid img-thumbnail" src={{book.imageUrlM}} alt="">
+                  </a>
+              </div>
+                  <div>
+                      <strong><a href="/book/{{book.isbn}}">{{book.title}}</a></strong>
+                      <p>{{book.author}}</p>
+                      <p-rating [(ngModel)]="book.rating" 
+                      [readonly] = true
+                      [cancel] = false ></p-rating>
+                  </div>
+            </div>
+          </div>
+        </ng-template>
+      </p-carousel>
+    </div>
+  
+    <!-- gallery -->
+    <div class="row text-center text-lg-left">
+  
+      <div *ngFor="let book of bookList" class="col-lg-3 col-md-4 col-6">
+        <div>
+            <a href="/book/{{book.isbn}}" class="d-block mb-4 h-100">
+              <img class="img-fluid img-thumbnail" src={{book.imageUrlL}} alt="">
+            </a>
+        </div>
+            <div>
+                <h6><a href="/book/{{book.isbn}}">{{book.title}}</a></h6>
+                <p>{{book.author}}</p>
+                <p-rating [(ngModel)]="book.rating" 
+                [readonly] = true
+                [cancel] = false ></p-rating>
+            </div>
+      </div>
+      
+    </div>
+  
+  </div>

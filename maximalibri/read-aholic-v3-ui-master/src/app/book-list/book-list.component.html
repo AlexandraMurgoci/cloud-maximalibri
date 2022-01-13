@@ -1,0 +1,30 @@
+<hr class="mt-5 mb-5">
+<div class="container mt-5">
+<p-dataView #dv [value]="bookList"
+[paginator]="true" [rows]="10"
+[lazy]="true" (onLazyLoad)="loadData($event)" [totalRecords]="totalRecords">
+    <p-header>
+        <p-dataViewLayoutOptions></p-dataViewLayoutOptions>
+        <input type="search" pInputText placeholder="Search by isbn, title or author" [(ngModel)]="searchParam" (ngModelChange)="inputValueChanged()">
+    </p-header>
+    <p-footer>
+        <ng-template pTemplate="paginatorleft" let-state>
+            {{state.first}}
+            <button type="button" pButton icon="fa-refresh"></button>
+        </ng-template>
+        <ng-template pTemplate="paginatorright">
+            <button type="button" pButton icon="fa-cloud-upload"></button>
+        </ng-template>
+    </p-footer>
+    <ng-template let-book pTemplate="listItem">
+        <div>
+            <app-book-list-view [book]=book></app-book-list-view>
+        </div>
+    </ng-template>
+    <ng-template let-book pTemplate="gridItem">
+        <div class="ui-g-12 ui-md-3">
+            <app-book-grid-view [book]=book></app-book-grid-view>
+        </div>
+    </ng-template>
+</p-dataView>
+</div>

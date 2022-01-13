@@ -1,0 +1,28 @@
+<hr class="mt-5 mb-5">
+
+<div class="container mt-5">
+  <div *ngIf = "!loading" class="col-md-12">
+      <h5>{{user.username}}</h5>
+      <p>ID: {{user.id}}</p>
+      <p>Email: {{user.email}}</p>
+      <p>Roluri: {{user.roles}}</p>
+      <div class="row">
+        <button *ngIf="!user.active" class="btn btn-success" (click)="activateUser()">Enable</button>
+        <button *ngIf="user.active" class="btn btn-danger" (click)="deactivateUser()">Disable</button>
+        <button class="btn btn-primary ml-3" (click)="makeAdmin()" [disabled] = "userIsAdmin()">Make admin</button>
+      </div>
+  </div>
+
+  <div class="container mt-5">
+    <div class="col-md-12" *ngFor="let bookReview of reviews">
+        <div class="row">
+            <strong>{{bookReview.isbn}}</strong>
+            <button class="btn btn-danger" (click)="deleteReview(bookReview.id)">Delete</button>
+        </div>
+        <textarea pInputTextarea [rows]="5" [cols]="70" autoResize="true" [(ngModel)]="bookReview.text" disabled = true></textarea>
+    </div>
+  </div>
+
+</div>
+
+

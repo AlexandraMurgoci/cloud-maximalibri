@@ -1,0 +1,35 @@
+<hr class="mt-5 mb-5">
+<div class="loading-indicator" *ngIf="loading"><p-progressSpinner></p-progressSpinner></div>
+
+<div *ngIf="!loading" class="container mt-5">
+  <div class="col-md-4"><img class="float-left" src={{book.imageUrlL}} alt="..."></div>
+  <div class="col-md-8">
+      <h4>{{book.title}}</h4>
+      <p>Author: {{book.author}}</p>
+      <p>Year Of Publication: {{book.yearOfPublication}}</p>
+      <p>Publisher: {{book.publisher}}</p>
+      <p-rating [(ngModel)]="book.rating" [readonly] = true [cancel] = false ></p-rating>
+      <p>Description:</p>
+      <p>{{book.description}}</p>
+  </div>
+</div>
+
+<div *ngIf="!loading && authService.isUserLogged()" class="container mt-5">
+  <div class="col-md-12">
+      <h6>Would you like to RATE and REVIEW this book?</h6>
+      <div class="row">
+        <div class="col-md-6"><p-rating [(ngModel)]="userRating" (onRate)="onRate($event)" (onCancel)="onCancelRating()"></p-rating></div>
+        <div class="col-md-6"><button class="btn btn-outline-success float-left" (click)="saveReview()">Save</button></div>
+      </div>
+      <textarea pInputTextarea [rows]="5" [cols]="70" autoResize="true" [(ngModel)]="userReview" placeholder="Write your review in here."></textarea>
+  </div>
+</div>
+
+<div *ngIf="!loading" class="container mt-5">
+  <div class="col-md-12" *ngFor="let bookReview of bookReviews">
+      <strong>{{bookReview.username}}</strong>
+      <p-rating [(ngModel)]="bookReview.userRating" [readonly] = true [cancel] = false ></p-rating>
+      <p>{{bookReview.userReview}}</p>
+  </div>
+</div>
+

@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: book-rating-db
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      service: book-rating-db
+  template:
+    metadata:
+      labels:
+        service: book-rating-db
+    spec:
+      containers:
+        - name: book-rating-db
+          image: postgres:13
+          env:
+          - name: POSTGRES_USER
+            value: postgres
+          - name: POSTGRES_DB
+            value: maximalibri_book_rating_db
+          - name: POSTGRES_PASSWORD
+            value: password
+
