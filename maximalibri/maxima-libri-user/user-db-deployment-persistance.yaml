@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: user-db
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      service: user-db
+  template:
+    metadata:
+      labels:
+        service: user-db
+    spec:
+      volumes:
+        - name: user-storage
+          persistentVolumeClaim:
+            claimName: user-pvc
+      containers:
+        - name: user-db
+          image: postgres:13
+          env:
+          - name: POSTGRES_USER
+            value: postgres
+          - name: POSTGRES_DB
+            value: maximalibri_user_db
+          - name: POSTGRES_PASSWORD
+            value: password
+          volumeMounts:
+            - mountPath: "/var/lib/postgresql/data"
+              name: user-storage
+
