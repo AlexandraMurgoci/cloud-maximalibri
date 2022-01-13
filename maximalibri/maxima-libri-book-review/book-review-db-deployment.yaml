@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: book-review-db
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      service: book-review-db
+  template:
+    metadata:
+      labels:
+        service: book-review-db
+    spec:
+      containers:
+        - name: book-review-db
+          image: postgres:13
+          env:
+          - name: POSTGRES_USER
+            value: postgres
+          - name: POSTGRES_DB
+            value: maximalibri_book_review_db
+          - name: POSTGRES_PASSWORD
+            value: password
+
